@@ -1,8 +1,5 @@
 package flux.lastbus.com.easysobuy.dagger.component;
 
-import android.app.Activity;
-import android.support.v4.app.FragmentActivity;
-
 import dagger.Component;
 import flux.lastbus.com.easysobuy.dagger.scope.ActivityScope;
 import flux.lastbus.com.easysobuy.ui.activity.BaseActivity;
@@ -14,9 +11,6 @@ import flux.lastbus.com.easysobuy.ui.activity.BaseActivity;
 @ActivityScope
 @Component(dependencies = AppComponent.class)
 public interface ActivityComponent {
-    void inject(Activity activity);
-
-    void inject(FragmentActivity fragmentActivity);
 
     void inject(BaseActivity appCompatActivity);
 
