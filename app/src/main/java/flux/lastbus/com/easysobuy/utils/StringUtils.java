@@ -105,4 +105,16 @@ public class StringUtils {
         return outBuffer.toString();
 
     }
+
+    /**
+     * 判断字符串是否无效
+     * @param str
+     * @return
+     */
+    public boolean isEmpty(String... str){
+        for(String s : str){
+            if(s == null || s.trim().equals("")) return false;
+        }
+        return true;
+    }
 }

@@ -42,7 +42,6 @@ public abstract class BaseActivity extends AppCompatActivity{
      */
     public void init(){
         //注入View布局
-//        ButterKnife.bind(this);
         mUnbinder = ButterKnife.bind(this);
 
         //注入
@@ -63,8 +62,6 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         //解除View注入
-//        ButterKnife.unbind(this);
-
         if(mUnbinder != null){
             mUnbinder.unbind();
         }

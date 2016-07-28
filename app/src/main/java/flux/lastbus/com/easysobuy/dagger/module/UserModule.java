@@ -7,6 +7,9 @@ import flux.lastbus.com.easysobuy.dagger.qualifier.UserKey;
 import flux.lastbus.com.easysobuy.dagger.qualifier.UserName;
 import flux.lastbus.com.easysobuy.dagger.scope.UserScope;
 import flux.lastbus.com.easysobuy.flux.bean.UserView;
+import flux.lastbus.com.easysobuy.flux.creator.UserActionCreator;
+import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
+import flux.lastbus.com.easysobuy.http.api.StoreApi;
 
 /**
  * 提供当前登陆用户信息
@@ -60,5 +63,17 @@ public class UserModule {
     @Provides
     public UserView provideUserView(){
         return mUserView;
+    }
+
+    /**
+     * 提供用户 Creator
+     * @param dispatcher
+     * @param storeApi
+     * @return
+     */
+    @UserScope
+    @Provides
+    public UserActionCreator provideUserActionCreator(Dispatcher dispatcher, StoreApi storeApi){
+        return new UserActionCreator(dispatcher, storeApi);
     }
 }

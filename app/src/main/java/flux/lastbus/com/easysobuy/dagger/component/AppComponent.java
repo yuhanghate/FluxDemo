@@ -27,7 +27,7 @@ import flux.lastbus.com.easysobuy.http.api.StoreApi;
 @Component(modules = {AppModule.class, RetrofitApiModule.class, DatabaseModule.class, FluxModule.class})
 public interface AppComponent {
 
-    void inject(Application application);
+    void inject(App application);
 
     /********************** Application区域开始 ********************************/
 

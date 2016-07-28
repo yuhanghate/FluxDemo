@@ -13,9 +13,9 @@ import flux.lastbus.com.easysobuy.dagger.scope.AppScope;
  */
 @Module
 public class AppModule {
-    Application mApplication;
+    App mApplication;
 
-    public AppModule(Application application){
+    public AppModule(App application){
         this.mApplication = application;
     }
 
@@ -26,7 +26,7 @@ public class AppModule {
     @AppScope
     @Provides
     public App provideApp(){
-        return (App) mApplication;
+        return mApplication;
     }
 
     /**

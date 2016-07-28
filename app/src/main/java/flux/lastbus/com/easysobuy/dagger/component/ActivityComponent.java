@@ -3,6 +3,7 @@ package flux.lastbus.com.easysobuy.dagger.component;
 import dagger.Component;
 import flux.lastbus.com.easysobuy.dagger.scope.ActivityScope;
 import flux.lastbus.com.easysobuy.ui.activity.BaseActivity;
+import flux.lastbus.com.easysobuy.ui.activity.LoginActivity;
 
 /**
  * Activity注入器
@@ -13,5 +14,7 @@ import flux.lastbus.com.easysobuy.ui.activity.BaseActivity;
 public interface ActivityComponent {
 
     void inject(BaseActivity appCompatActivity);
+
+    void inject(LoginActivity loginActivity);
 
 }
