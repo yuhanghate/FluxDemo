@@ -56,7 +56,7 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
 
 ##数据读取及展现
 
-
+<br>
 ###数据读写方案
   按优先级从高到低排列
 
@@ -64,6 +64,9 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
   2.SD -> 网络 <br>
   3.数据库 -> 网络 <br>
 
+<br>
+<br>
+<br>
 
 
 ##View展现方案：
