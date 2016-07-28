@@ -21,22 +21,22 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
 
 
 
-  ##应用功能介绍
+##应用功能介绍
 
 
 
-  ###Application功能：
+###Application功能：
   用Dagger2进行依次进行Http/Database/Flux注入，以达到单例效果。可以全局使用
 
 
 
-  ###Activity层：
+###Activity层：
   常用功能注入：使用Application层全所功能对象。
   View对象及事件注入：使用ButterKnife进行快速初始化View及点击事件
 
 
 
-  ###Fragment层：
+###Fragment层：
   常用功能注入：使用Activity层注入器，共享Application级对象及Activity级对象
   View注入：使用ButterKnife进行快速注入
 
@@ -51,7 +51,7 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
 
 
 
-  ##数据读取及展现
+##数据读取及展现
 
 
   ###数据读写方案
@@ -77,7 +77,8 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
 
 
 
-  ##离线View：可以分页加载本地数据<br>
+##离线View
+可以分页加载本地数据<br>
 
   1.读取本地缓存 -> View显示 ->提示查看网络设置<br>
 
