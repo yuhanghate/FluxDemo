@@ -43,7 +43,7 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
 
 
 
-  ###Adapter层：
+###Adapter层：
   代表：进行细化View。使用代表概念，每种布局都是一个代表。每个Adapter由一个或者多个代表组成。
   Adapter:对代表进行管理。具体事件由每个代表自己完成
   RecyclerView：增加上拉刷新，下拉更多，空白页，错误页，等待界面
@@ -66,13 +66,13 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
 
 
 
-  ##View展现方案：
+##View展现方案：
   1.读取本地缓存 -> View显示 -> 进度条显示 -> 读取网络数据 -> 更新本地缓存 -> View显示 ->进度条隐藏 <br>
 
-  ###空白页
+###空白页
   本地缓存及网络都没有数据<br>
 
-  ###异常页
+###异常页
   数据库/网络异常。可以点击刷新重新加载<br>
 
   ###数据加载页
