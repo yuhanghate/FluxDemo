@@ -18,8 +18,9 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
   Store -> View :使用Rxbus进行数据传递。<br>
 
 
-
-
+\<br>
+\<br>
+\<br>
 
 ##应用功能介绍
 
@@ -48,11 +49,11 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
   RecyclerView：增加上拉刷新，下拉更多，空白页，错误页，等待界面<br>
 
 
-<br>
-<br>
-<br>
-<br>
-<br>
+\<br>
+\<br>
+\<br>
+\<br>
+\<br>
 
 ##数据读取及展现
 
@@ -78,7 +79,10 @@ View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
 ###数据加载页
   本地缓存无数据显示<br>
 
-
+\<br>
+\<br>
+\<br>
+\<br>
 
 ##离线View
 可以分页加载本地数据<br>
