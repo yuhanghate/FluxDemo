@@ -11,6 +11,12 @@ public class UserView implements Parcelable {
     private String key;
     private String uid;
 
+    public UserView(String name, String key, String uid) {
+        this.name = name;
+        this.key = key;
+        this.uid = uid;
+    }
+
     public String getName() {
         return name;
     }

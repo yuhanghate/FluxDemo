@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import flux.lastbus.com.easysobuy.flux.action.BaseAction;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 
@@ -21,7 +19,7 @@ public class Dispatcher {
     private List<BaseStore> mStoreList;
 //    private static Dispatcher sInstance;
 
-    @Inject
+
     public Dispatcher() {
         mStoreList = new ArrayList<>();
     }

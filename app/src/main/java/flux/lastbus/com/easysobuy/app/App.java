@@ -1,21 +1,22 @@
 package flux.lastbus.com.easysobuy.app;
 
 import android.app.Application;
+import android.util.Log;
+
+import java.util.Date;
 
 import javax.inject.Inject;
 
 import de.greenrobot.dao.query.QueryBuilder;
 import flux.lastbus.com.easysobuy.BuildConfig;
-import flux.lastbus.com.easysobuy.dagger.component.AppComponent;
-import flux.lastbus.com.easysobuy.dagger.component.DaggerAppComponent;
-import flux.lastbus.com.easysobuy.dagger.module.AppModule;
-import flux.lastbus.com.easysobuy.dagger.module.DaoManageModule;
-import flux.lastbus.com.easysobuy.dagger.module.DaoModule;
-import flux.lastbus.com.easysobuy.dagger.module.DatabaseModule;
 import flux.lastbus.com.easysobuy.dagger.module.FluxModule;
-import flux.lastbus.com.easysobuy.dagger.module.HttpApiModule;
-import flux.lastbus.com.easysobuy.dagger.module.RetrofitApiModule;
-import flux.lastbus.com.easysobuy.database.dao.DaoSession;
+import flux.lastbus.com.easysobuy.dagger.module.RetrofitModule;
+import flux.lastbus.com.easysobuy.dagger.test.ApplicationComponent;
+import flux.lastbus.com.easysobuy.dagger.test.DaggerApplicationComponent;
+import flux.lastbus.com.easysobuy.dagger.test.Text1Module;
+import flux.lastbus.com.easysobuy.dagger.test.Text2Module;
+import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
+import retrofit2.Retrofit;
 
 /**
  * 全局应用
@@ -23,11 +24,28 @@ import flux.lastbus.com.easysobuy.database.dao.DaoSession;
  * Created by yuhang on 16-7-27.
  */
 public class App extends Application {
+//    AppComponent mAppComponent;
+
+//    ActionCreatorComponent mActionCreatorComponent;
+
+//    @Inject
+//    Retrofit mRetrofit;
+//    @Inject
+//    StoreApi mStoreApi;
+//    @Inject
+//LoginParams mRetrofit;
+
     @Inject
-    DaoSession mDaoSession;
+    Date date;
+    @Inject
+    String string;
+    @Inject
+    Retrofit retrofit;
+    @Inject
+    Dispatcher dispatcher;
 
 
-    AppComponent mAppComponent;
+
     static App mApp;
     @Override
     public void onCreate() {
@@ -42,17 +60,21 @@ public class App extends Application {
      * Http/Database/ShereProferce/Service
      */
     private void initAppComponent(){
-        mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .daoManageModule(new DaoManageModule())
-                .daoModule(new DaoModule())
-                .databaseModule(new DatabaseModule())
-                .fluxModule(new FluxModule())
-                .httpApiModule(new HttpApiModule())
-                .retrofitApiModule(new RetrofitApiModule())
-                .build();
 
-        mAppComponent.inject(this);
+        ApplicationComponent component = DaggerApplicationComponent.builder()
+                .fluxModule(new FluxModule())
+                .retrofitModule(new RetrofitModule())
+                .text1Module(new Text1Module())
+                .text2Module(new Text2Module())
+                .build();
+        component.inject(this);
+
+        Date date = component.getDate();
+        Log.i("","");
+        /*DaggerAppComponent.builder()
+                .fluxModule(new FluxModule())
+                .build();
+        mAppComponent.inject(this);*/
     }
 
     /**
@@ -69,9 +91,23 @@ public class App extends Application {
      * 获取AppComponent对象
      * @return
      */
-    public AppComponent getAppComponent(){
+   /* public AppComponent getAppComponent(){
         return mAppComponent;
     }
+
+    *//**
+     * 获取数据帮助类注入器
+     * @return
+     *//*
+    public ActionCreatorComponent getActionCreatorComponent(){
+        if(mActionCreatorComponent == null){
+//            DaggerActionCreatorComponent.builder()
+//                    .httpApiModule(new HttpApiModule(getAppComponent().getRetrofit()))
+//                    .actionCreatorModule(new ActionCreatorModule(mDispatcher))
+//                    .build();
+        }
+        return mActionCreatorComponent;
+    }*/
 
     /**
      * 获取App对象
@@ -80,5 +116,6 @@ public class App extends Application {
     public static App getInstance(){
         return mApp;
     }
+
 
 }

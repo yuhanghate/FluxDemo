@@ -12,8 +12,9 @@ import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 @Module
 public class FluxModule {
 
-    @AppScope
+
     @Provides
+    @AppScope
     public Dispatcher provideDispatcher(){
         return new Dispatcher();
     }

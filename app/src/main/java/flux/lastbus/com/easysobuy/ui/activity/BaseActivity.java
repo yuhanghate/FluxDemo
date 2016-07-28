@@ -5,14 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import flux.lastbus.com.easysobuy.app.App;
-import flux.lastbus.com.easysobuy.dagger.component.ActivityComponent;
-import flux.lastbus.com.easysobuy.dagger.component.AppComponent;
-import flux.lastbus.com.easysobuy.dagger.component.DaggerActivityComponent;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 
@@ -21,13 +16,13 @@ import flux.lastbus.com.easysobuy.flux.store.BaseStore;
  * Created by yuhang on 16-7-27.
  */
 public abstract class BaseActivity extends AppCompatActivity{
-    @Inject
+//    @Inject
     Dispatcher mDispatcher;
 
     BaseStore mStore;
     Unbinder mUnbinder;
 
-    ActivityComponent mActivityComponent;
+//    ActivityComponent mActivityComponent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,17 +38,16 @@ public abstract class BaseActivity extends AppCompatActivity{
     public void init(){
         //注入View布局
         mUnbinder = ButterKnife.bind(this);
-
-        //注入
+        /*//注入
         mActivityComponent = DaggerActivityComponent.builder()
                 .appComponent(App.getInstance().getAppComponent())
                 .build();
-        mActivityComponent.inject(this);
+        mActivityComponent.inject(this);*/
 
         //注册Store
         mStore = onCreateStore();
         if(mStore != null){
-            mDispatcher.register(mStore);
+//            mDispatcher.register(mStore);
         }
     }
 
@@ -67,7 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         }
         //解绑Store
         if(mStore != null){
-            mDispatcher.unregister(mStore);
+//            mDispatcher.unregister(mStore);
             mStore = null;
         }
     }
@@ -104,12 +98,18 @@ public abstract class BaseActivity extends AppCompatActivity{
      * 获取Application注入器
      * @return
      */
-    public AppComponent getAppComponent(){return ((App)getApplication()).getAppComponent();}
+//    public AppComponent getAppComponent(){return getApp().getAppComponent();}
 
     /**
      * 获取Activity注入器
      * @return
      */
-    public ActivityComponent getActivityComponent(){return mActivityComponent;}
+//    public ActivityComponent getActivityComponent(){return mActivityComponent;}
+
+    /**
+     * 返回App
+     * @return
+     */
+    public App getApp(){return (App) getApplication();}
 
 }

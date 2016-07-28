@@ -20,12 +20,9 @@ import android.widget.ScrollView;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import flux.lastbus.com.easysobuy.R;
-import flux.lastbus.com.easysobuy.flux.creator.UserActionCreator;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 import flux.lastbus.com.easysobuy.flux.store.LoginStore;
 
@@ -33,9 +30,8 @@ import flux.lastbus.com.easysobuy.flux.store.LoginStore;
  * 登陆界面
  */
 public class LoginActivity extends BaseActivity {
-    @Inject
-    UserActionCreator mUserActionCreator;
-
+//    @Inject
+//    UserActionCreator mUserActionCreator;
 
     @BindView(R.id.login_progress)
     ProgressBar mProgressView;
@@ -81,8 +77,8 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
         // Set up the login form.
+//        getApp().getActionCreatorComponent().inject(this);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.login || id == EditorInfo.IME_NULL) {
                 attemptLogin();
@@ -91,6 +87,7 @@ public class LoginActivity extends BaseActivity {
             return false;
         });
     }
+
 
 
     /**

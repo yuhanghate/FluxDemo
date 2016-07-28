@@ -1,33 +1,35 @@
 package flux.lastbus.com.easysobuy.dagger.module;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import flux.lastbus.com.easysobuy.BuildConfig;
-import flux.lastbus.com.easysobuy.constant.URLConstant;
-import flux.lastbus.com.easysobuy.dagger.scope.AppScope;
-import flux.lastbus.com.easysobuy.http.converter.GsonConverterFactory;
-import flux.lastbus.com.easysobuy.http.interceptor.HttpLoggingInterceptor;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import flux.lastbus.com.easysobuy.http.params.LoginParams;
 
 /**
- * 提供api需要的参数对象
- * Created by yuhang on 16-7-27.
+ * Created by yuhang on 16-7-28.
  */
-@Module(includes = {HttpApiModule.class})
-public class RetrofitApiModule {
+@Module
+public class GsonModule {
 
+    @Provides
+    @Singleton
+    public String getString(){
+        return new String();
+    }
+
+    @Provides
+    public LoginParams getLoginParams(){
+        return new LoginParams("","");
+    }
     /**
      * 提供Gson对象
      * @return
      */
-    @AppScope
+   /* @AppScope
     @Provides
     public Gson provideGson(){
+//        return new Gson();
         //注意这里的Gson的构建方式为GsonBuilder,区别于test1中的Gson gson = new Gson();
         return new GsonBuilder()
 //                .excludeFieldsWithoutExposeAnnotation() //不导出实体中没有用@Expose注解的属性
@@ -38,24 +40,24 @@ public class RetrofitApiModule {
                 .create();
     }
 
-    /**
+    *//**
      * 提供Gson解析工厂类
      * @param gson
      * @return
-     */
+     *//*
     @AppScope
     @Provides
     public GsonConverterFactory provideGsonConverterFactory(Gson gson){
         return GsonConverterFactory.create(gson);
     }
 
-    /**
+    *//**
      * 提供API生成类
      * @param converterFactory
      * @param okHttpClient
      * @param rxJavaCallAdapterFactory
      * @return
-     */
+     *//*
     @AppScope
     @Provides
     public Retrofit provideRetrofit(GsonConverterFactory converterFactory, OkHttpClient okHttpClient, RxJavaCallAdapterFactory rxJavaCallAdapterFactory){
@@ -67,11 +69,11 @@ public class RetrofitApiModule {
                 .build();
     }
 
-    /**
+    *//**
      * 提供OKHttpClient
      * @param httpLoggingInterceptor
      * @return
-     */
+     *//*
     @AppScope
     @Provides
     public OkHttpClient provideOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor){
@@ -80,10 +82,10 @@ public class RetrofitApiModule {
                 .build();
     }
 
-    /**
+    *//**
      * 提供日志拦截器
      * @return
-     */
+     *//*
     @AppScope
     @Provides
     public HttpLoggingInterceptor provideHttpLoggingInterceptor(){
@@ -93,15 +95,13 @@ public class RetrofitApiModule {
                 interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
     }
 
-    /**
+    *//**
      * 提供RxJava适配器
      * @return
-     */
+     *//*
     @AppScope
     @Provides
     public RxJavaCallAdapterFactory provideRxJavaCallAdapterFactory(){
         return RxJavaCallAdapterFactory.create();
-    }
-
-
+    }*/
 }

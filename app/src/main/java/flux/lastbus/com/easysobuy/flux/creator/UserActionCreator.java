@@ -22,7 +22,6 @@ public class UserActionCreator extends BaseActionCreator{
      */
     StoreApi mStoreApi;
 
-
     public UserActionCreator(Dispatcher dispatcher, StoreApi storeApi) {
         super(dispatcher);
         this.mStoreApi = storeApi;

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import java.util.Date;
 
 import de.greenrobot.dao.query.Query;
-import flux.lastbus.com.easysobuy.app.App;
 import flux.lastbus.com.easysobuy.database.core.DaoCore;
 import flux.lastbus.com.easysobuy.database.dao.UsersDBDao;
 import flux.lastbus.com.easysobuy.database.module.UserInfoDB;
@@ -52,7 +51,7 @@ public class UsersManage extends DaoCore<UsersDB, Long> {
      */
     public void deleteLastUser(){
         UserInfoDB lastUserInfo = getLastUserInfo();
-        if(lastUserInfo != null) App.getInstance().getAppComponent().getUserInfoManage().rxDelete(lastUserInfo);
+//        if(lastUserInfo != null) App.getInstance().getAppComponent().getUserInfoManage().rxDelete(lastUserInfo);
 
         if(getLastUser() != null) rxDelete(getLastUser());
 

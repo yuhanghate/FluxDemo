@@ -21,10 +21,6 @@ android {
         }
     }
 
-    // Butterknift与Dagger2冲突
-    packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
-    }
 
     //增加Java8支持
     compileOptions {
