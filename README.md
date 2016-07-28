@@ -1,10 +1,7 @@
 # FluxDemo
 
 使用Flux架构
-View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store ---
-  ^                                                                     |
-  |                                                                     |
-  |---------------------------------------------------------------------|
+View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
   
   说明：单向数据流。
 
