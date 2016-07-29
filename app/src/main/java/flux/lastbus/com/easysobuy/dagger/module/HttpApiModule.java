@@ -12,11 +12,6 @@ import retrofit2.Retrofit;
  */
 @Module
 public class HttpApiModule {
-    Retrofit mRetrofit;
-
-    public HttpApiModule(Retrofit mRetrofit) {
-        this.mRetrofit = mRetrofit;
-    }
 
     /**
      * 提供商城API
@@ -24,7 +19,7 @@ public class HttpApiModule {
      */
     @AppScope
     @Provides
-    public StoreApi provideStoreApi(){
+    public StoreApi provideStoreApi(Retrofit mRetrofit){
         return mRetrofit.create(StoreApi.class);
     }
 }

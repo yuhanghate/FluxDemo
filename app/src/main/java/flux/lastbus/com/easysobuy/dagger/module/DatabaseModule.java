@@ -19,13 +19,12 @@ public class DatabaseModule {
 
     /**
      * 提供版本升级
-     * @param app
      * @return
      */
     @AppScope
     @Provides
-    public VersionCoreInterfaceImpl provideVersionCoreInterface(App app){
-        return new VersionCoreInterfaceImpl(app, DatabaseConstant.DEFAULT_DB_NAME, null);
+    public VersionCoreInterfaceImpl provideVersionCoreInterface(App mApp){
+        return new VersionCoreInterfaceImpl(mApp, DatabaseConstant.DEFAULT_DB_NAME, null);
     }
 
     /**

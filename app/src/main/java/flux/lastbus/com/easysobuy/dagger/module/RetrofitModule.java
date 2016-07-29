@@ -18,7 +18,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  * 提供api需要的参数对象
  * Created by yuhang on 16-7-27.
  */
-@Module
+@Module(includes = HttpApiModule.class)
 public class RetrofitModule {
 
 

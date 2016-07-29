@@ -17,25 +17,12 @@ import flux.lastbus.com.easysobuy.flux.store.BaseStore;
  */
 public class Dispatcher {
     private List<BaseStore> mStoreList;
-//    private static Dispatcher sInstance;
 
 
     public Dispatcher() {
         mStoreList = new ArrayList<>();
     }
 
-
-    /**
-     * 返回Dispatcher单例对象
-     *
-     * @return dispatcher Dispatcher
-     */
-   /* public static Dispatcher instance() {
-        if (sInstance == null) {
-            sInstance = new Dispatcher();
-        }
-        return sInstance;
-    }*/
 
     /**
      * 订阅action

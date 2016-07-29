@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -20,18 +21,23 @@ import android.widget.ScrollView;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import flux.lastbus.com.easysobuy.R;
+import flux.lastbus.com.easysobuy.bus.RxBus;
+import flux.lastbus.com.easysobuy.flux.creator.UserActionCreator;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 import flux.lastbus.com.easysobuy.flux.store.LoginStore;
+import flux.lastbus.com.easysobuy.flux.store.event.LoginEvent;
 
 /**
  * 登陆界面
  */
 public class LoginActivity extends BaseActivity {
-//    @Inject
-//    UserActionCreator mUserActionCreator;
+    @Inject
+    UserActionCreator mUserActionCreator;
 
     @BindView(R.id.login_progress)
     ProgressBar mProgressView;
@@ -60,6 +66,11 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
+    @Override
+    public BaseStore onCreateStore() {
+        return new LoginStore();
+    }
+
     /**
      * Start Login Activity
      * @param context
@@ -69,15 +80,16 @@ public class LoginActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @Override
+  /*  @Override
     public BaseStore onCreateStore() {
         return new LoginStore();
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Set up the login form.
+        getApp().getActionCreatorComponent().inject(this);
 //        getApp().getActionCreatorComponent().inject(this);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -89,6 +101,23 @@ public class LoginActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onStoreChangeEvent() {
+        super.onStoreChangeEvent();
+        RxBus.instance().toObservable(LoginEvent.class)
+                .subscribe(loginEvent -> refershSanbar());
+    }
+
+    private void refershSanbar(){
+        LoginStore store = getStore();
+        String msg;
+        if(store.isLoginStatus()){
+            msg = "登陆成功";
+        }else{
+            msg = "登陆失败";
+        }
+        Snackbar.make(mLoginFormView, msg, Snackbar.LENGTH_LONG).show();;
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -190,7 +219,10 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.email_sign_in_button)
     public void onClick() {
-        attemptLogin();
+        String name = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        mUserActionCreator.login(name, password);
+//        attemptLogin();
     }
 
 

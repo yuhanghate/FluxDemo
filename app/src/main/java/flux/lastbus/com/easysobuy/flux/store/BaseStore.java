@@ -1,5 +1,6 @@
 package flux.lastbus.com.easysobuy.flux.store;
 
+import android.os.Parcelable;
 import android.view.View;
 
 import java.io.Serializable;
@@ -31,5 +32,14 @@ public abstract class BaseStore implements Serializable {
     }
 
     protected abstract ChangeEvent getChangeEvent();
+
+    /**
+     * 获取对象
+     * @param action
+     * @return
+     */
+    public <T extends Parcelable> T getParcelable(BaseAction action){
+        return action.getData().getParcelable(action.getType());
+    }
 
 }

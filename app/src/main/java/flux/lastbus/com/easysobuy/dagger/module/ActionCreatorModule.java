@@ -2,7 +2,7 @@ package flux.lastbus.com.easysobuy.dagger.module;
 
 import dagger.Module;
 import dagger.Provides;
-import flux.lastbus.com.easysobuy.dagger.scope.AppScope;
+import flux.lastbus.com.easysobuy.dagger.scope.ActionCreatorScope;
 import flux.lastbus.com.easysobuy.flux.creator.UserActionCreator;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 import flux.lastbus.com.easysobuy.http.api.StoreApi;
@@ -14,18 +14,20 @@ import flux.lastbus.com.easysobuy.http.api.StoreApi;
 @Module
 public class ActionCreatorModule {
     Dispatcher mDispatcher;
+    StoreApi mStoreApi;
 
-    public ActionCreatorModule(Dispatcher mDispatcher) {
+    public ActionCreatorModule(Dispatcher mDispatcher, StoreApi mStoreApi) {
         this.mDispatcher = mDispatcher;
+        this.mStoreApi = mStoreApi;
     }
 
     /**
      * 提供用户帐号相关数据
      * @return
      */
-    @AppScope
+    @ActionCreatorScope
     @Provides
-    public UserActionCreator provideUserActionCreator(StoreApi storeApi){
-        return new UserActionCreator(mDispatcher,storeApi);
+    public UserActionCreator provideUserActionCreator(){
+        return new UserActionCreator(mDispatcher,mStoreApi);
     }
 }

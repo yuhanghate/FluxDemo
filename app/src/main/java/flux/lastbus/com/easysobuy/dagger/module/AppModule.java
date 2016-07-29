@@ -1,16 +1,15 @@
 package flux.lastbus.com.easysobuy.dagger.module;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import flux.lastbus.com.easysobuy.app.App;
+import flux.lastbus.com.easysobuy.dagger.scope.AppScope;
 
 /**
  * Application应用Module
  * Created by yuhang on 16-7-27.
  */
-@Module(includes = FluxModule.class)
+@Module
 public class AppModule {
     App mApplication;
 
@@ -22,7 +21,7 @@ public class AppModule {
      * 提供App
      * @return
      */
-    @Singleton
+    @AppScope
     @Provides
     public App provideApp(){
         return mApplication;
