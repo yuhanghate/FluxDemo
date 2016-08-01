@@ -1,5 +1,6 @@
 package flux.lastbus.com.easysobuy.flux.creator;
 
+import flux.lastbus.com.easysobuy.flux.action.BaseAction;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 
 /**
@@ -16,6 +17,14 @@ public abstract class BaseActionCreator {
 
     public Dispatcher getDispatcher() {
         return mDispatcher;
+    }
+
+    /**
+     * 分发数据
+     * @param action
+     */
+    public void dispatch(BaseAction action){
+        getDispatcher().dispatch(action);
     }
 
 }

@@ -2,7 +2,7 @@ package flux.lastbus.com.easysobuy.flux.store;
 
 import flux.lastbus.com.easysobuy.bus.RxBus;
 import flux.lastbus.com.easysobuy.flux.action.BaseAction;
-import flux.lastbus.com.easysobuy.flux.action.LoginAction;
+import flux.lastbus.com.easysobuy.flux.action.UserAction;
 import flux.lastbus.com.easysobuy.flux.bean.UserView;
 import flux.lastbus.com.easysobuy.flux.store.event.ChangeEvent;
 import flux.lastbus.com.easysobuy.flux.store.event.LoginEvent;
@@ -16,6 +16,7 @@ public class LoginStore extends BaseStore {
 
     private UserView mUserView;
     private boolean isLoginStatus;
+    private boolean isProgressLoading;
 
 
     public LoginStore() {
@@ -36,15 +37,23 @@ public class LoginStore extends BaseStore {
     @Override
     public void onAction(BaseAction action) {
         switch (action.getType()){
-            case LoginAction.ACTION_LOGIN_SUCCESSED:
-                onLoginSuccessEvent((LoginAction) action);
+            case UserAction.ACTION_LOGIN_SUCCESSED:
+                onLoginSuccessEvent((UserAction) action);
                 break;
-            case LoginAction.ACTION_LOGIN_FAILED:
+            case UserAction.ACTION_LOGIN_FAILED:
                 onLoginFaildEvent();
+                break;
+            case UserAction.ACTION_LOADING:
+                isProgressLoading = true;
+                break;
+            case UserAction.ACTION_LOADED:
+                isProgressLoading = false;
                 break;
             default:
                 break;
         }
+
+        mLoginEvent.setType(action.getType());
         RxBus.instance().send(getChangeEvent());
     }
 
@@ -52,7 +61,7 @@ public class LoginStore extends BaseStore {
      * 登陆成功事件通知
      * @param loginAction
      */
-    public void onLoginSuccessEvent(LoginAction loginAction){
+    public void onLoginSuccessEvent(UserAction loginAction){
         isLoginStatus = true;
         mUserView = getParcelable(loginAction);
     }
@@ -82,5 +91,11 @@ public class LoginStore extends BaseStore {
     public boolean isLoginStatus(){
         return isLoginStatus;
     }
+
+    /**
+     * 等待条
+     * @return
+     */
+    public boolean isProgressLoading(){return isProgressLoading;}
 
 }

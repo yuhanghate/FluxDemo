@@ -1,24 +1,24 @@
 package flux.lastbus.com.easysobuy.flux.action;
 
 import android.os.Bundle;
-
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Action 基类,所有action都需要继承此类
  * author yuhang
  * date 2016-05-09 17:29
  */
-public abstract class BaseAction implements Serializable {
+public class BaseAction implements Parcelable {
     private final String type;
     private final Bundle data;
 
-    protected BaseAction(String type, Bundle data) {
+    public BaseAction(String type, Bundle data) {
         this.type = type;
         this.data = data;
     }
 
-    protected BaseAction(String type) {
+    public BaseAction(String type) {
         this(type, null);
     }
 
@@ -29,4 +29,32 @@ public abstract class BaseAction implements Serializable {
     public Bundle getData() {
         return data;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.type);
+        dest.writeBundle(this.data);
+    }
+
+    protected BaseAction(Parcel in) {
+        this.type = in.readString();
+        this.data = in.readBundle();
+    }
+
+    public static final Creator<BaseAction> CREATOR = new Creator<BaseAction>() {
+        @Override
+        public BaseAction createFromParcel(Parcel source) {
+            return new BaseAction(source);
+        }
+
+        @Override
+        public BaseAction[] newArray(int size) {
+            return new BaseAction[size];
+        }
+    };
 }

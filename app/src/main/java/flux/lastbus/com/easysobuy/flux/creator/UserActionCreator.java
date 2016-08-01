@@ -3,7 +3,7 @@ package flux.lastbus.com.easysobuy.flux.creator;
 import android.os.Bundle;
 
 import flux.lastbus.com.easysobuy.constant.HttpConstant;
-import flux.lastbus.com.easysobuy.flux.action.LoginAction;
+import flux.lastbus.com.easysobuy.flux.action.UserAction;
 import flux.lastbus.com.easysobuy.flux.creator.conversion.UserConversion;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 import flux.lastbus.com.easysobuy.http.api.StoreApi;
@@ -35,6 +35,9 @@ public class UserActionCreator extends BaseActionCreator{
     public void login(String name, String password){
         if(mStoreApi == null) throw new NullPointerException("StoreApi not is Null");
 
+        //加载中
+        progressLoadingAction(true);
+
         //帐号登陆
         mStoreApi.postLoginResult(new LoginParams(name, password).toMap())
                 .subscribeOn(Schedulers.io())
@@ -50,11 +53,25 @@ public class UserActionCreator extends BaseActionCreator{
     private void onLoginAction(LoginResult result){
         if(result.getCode() == HttpConstant.SUCCESSED){
             //成功回调
-            Bundle bundle = UserConversion.getLoginResult2UserView(result);
-            getDispatcher().dispatch(new LoginAction(LoginAction.ACTION_LOGIN_SUCCESSED,bundle));
+            Bundle bundle = UserConversion.getLoginResult2UserView(result, UserAction.ACTION_LOGIN_SUCCESSED);
+            dispatch(new UserAction(UserAction.ACTION_LOGIN_SUCCESSED,bundle));
         }else{
             //失败回调
-            getDispatcher().dispatch(new LoginAction(LoginAction.ACTION_LOGIN_FAILED));
+            dispatch(new UserAction(UserAction.ACTION_LOGIN_FAILED));
+        }
+        //加载完成
+        progressLoadingAction(false);
+    }
+
+    /**
+     * 加载回调
+     * @param isLoading true:加载中  false：加载完成
+     */
+    private void progressLoadingAction(boolean isLoading){
+        if(isLoading){
+            dispatch(new UserAction(UserAction.ACTION_LOADING));
+        }else{
+            dispatch(new UserAction(UserAction.ACTION_LOADED));
         }
     }
 

@@ -5,11 +5,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
@@ -19,14 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import flux.lastbus.com.easysobuy.R;
-import flux.lastbus.com.easysobuy.bus.RxBus;
+import flux.lastbus.com.easysobuy.flux.action.UserAction;
 import flux.lastbus.com.easysobuy.flux.creator.UserActionCreator;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 import flux.lastbus.com.easysobuy.flux.store.LoginStore;
@@ -36,8 +32,19 @@ import flux.lastbus.com.easysobuy.flux.store.event.LoginEvent;
  * 登陆界面
  */
 public class LoginActivity extends BaseActivity {
+
     @Inject
     UserActionCreator mUserActionCreator;
+/*    @Inject
+    @UserName
+    String username;
+    @Inject
+    @UserID
+    String uid;
+    @Inject
+    @UserKey
+    String key;*/
+
 
     @BindView(R.id.login_progress)
     ProgressBar mProgressView;
@@ -51,15 +58,19 @@ public class LoginActivity extends BaseActivity {
     Button emailSignInButton;
     @BindView(R.id.email_login_form)
     LinearLayout emailLoginForm;
-
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
 
+    /**
+     * Start Login Activity
+     *
+     * @param context
+     */
+    public static void start(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     public int onContentView() {
@@ -71,29 +82,13 @@ public class LoginActivity extends BaseActivity {
         return new LoginStore();
     }
 
-    /**
-     * Start Login Activity
-     * @param context
-     */
-    public static void start(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
-        context.startActivity(intent);
-    }
-
-  /*  @Override
-    public BaseStore onCreateStore() {
-        return new LoginStore();
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Set up the login form.
-        getApp().getActionCreatorComponent().inject(this);
-//        getApp().getActionCreatorComponent().inject(this);
+        getActivityComponent().inject(this);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                attemptLogin();
                 return true;
             }
             return false;
@@ -104,82 +99,38 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void onStoreChangeEvent() {
         super.onStoreChangeEvent();
-        RxBus.instance().toObservable(LoginEvent.class)
-                .subscribe(loginEvent -> refershSanbar());
-    }
-
-    private void refershSanbar(){
-        LoginStore store = getStore();
-        String msg;
-        if(store.isLoginStatus()){
-            msg = "登陆成功";
-        }else{
-            msg = "登陆失败";
-        }
-        Snackbar.make(mLoginFormView, msg, Snackbar.LENGTH_LONG).show();;
+        registerEvent(LoginEvent.class)
+                .subscribe(login -> {
+                    switch (login.getType()) {
+                        case UserAction.ACTION_LOGIN_SUCCESSED:
+                        case UserAction.ACTION_LOGIN_FAILED:
+                            refershSanbar();
+                            break;
+                        case UserAction.ACTION_LOADED:
+                            showProgress(false);
+                            break;
+                        case UserAction.ACTION_LOADING:
+                            showProgress(true);
+                            break;
+                    }
+                });
     }
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
+     * 登陆状态返回
      */
-    private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
-        // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
-
-        // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
+    private void refershSanbar() {
+        LoginStore store = getStore();
+        String msg;
+        if (store.isLoginStatus()) {
+//            getApp().getUserComponent(store.getmUserView());
+            msg = "登陆成功";
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            msg = "登陆失败";
         }
+        Snackbar.make(mLoginFormView, msg, Snackbar.LENGTH_LONG).show();
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
 
     /**
      * Shows the progress UI and hides the login form.
@@ -222,66 +173,7 @@ public class LoginActivity extends BaseActivity {
         String name = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         mUserActionCreator.login(name, password);
-//        attemptLogin();
     }
 
-
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(TimeUnit.SECONDS.toMillis(4));
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-    }
 }
 

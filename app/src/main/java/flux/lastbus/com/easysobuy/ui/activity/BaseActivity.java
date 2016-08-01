@@ -10,11 +10,14 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import flux.lastbus.com.easysobuy.app.App;
-import flux.lastbus.com.easysobuy.dagger.component.ActivityComponent;
-import flux.lastbus.com.easysobuy.dagger.component.AppComponent;
-import flux.lastbus.com.easysobuy.dagger.component.DaggerActivityComponent;
+import flux.lastbus.com.easysobuy.bus.RxBus;
+import flux.lastbus.com.easysobuy.di.component.ActivityComponent;
+import flux.lastbus.com.easysobuy.di.component.AppComponent;
+import flux.lastbus.com.easysobuy.di.component.DaggerActivityComponent;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
+import flux.lastbus.com.easysobuy.flux.store.event.ChangeEvent;
+import rx.Observable;
 
 /**
  * Activity基类
@@ -46,6 +49,8 @@ public abstract class BaseActivity extends AppCompatActivity{
         mActivityComponent = DaggerActivityComponent.builder()
                 .actionCreatorComponent(getApp().getActionCreatorComponent())
                 .build();
+
+        mActivityComponent.inject(this);
 
         //注册Store
         mStore = onCreateStore();
@@ -126,6 +131,16 @@ public abstract class BaseActivity extends AppCompatActivity{
      */
     public <T extends BaseStore> T getStore(){
         return (T) mStore;
+    }
+
+    /**
+     * 注册Store通知事件
+     * @param event 注册事件Class类型,
+     * @param <V> observable
+     * @return
+     */
+    public <V extends ChangeEvent> Observable<V> registerEvent(Class<V> event){
+        return RxBus.instance().toObservable(event);
     }
 
 

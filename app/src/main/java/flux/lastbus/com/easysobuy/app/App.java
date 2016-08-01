@@ -6,21 +6,18 @@ import javax.inject.Inject;
 
 import de.greenrobot.dao.query.QueryBuilder;
 import flux.lastbus.com.easysobuy.BuildConfig;
-import flux.lastbus.com.easysobuy.dagger.component.ActionCreatorComponent;
-import flux.lastbus.com.easysobuy.dagger.component.AppComponent;
-import flux.lastbus.com.easysobuy.dagger.component.DaggerActionCreatorComponent;
-import flux.lastbus.com.easysobuy.dagger.component.DaggerAppComponent;
-import flux.lastbus.com.easysobuy.dagger.component.UserComponent;
-import flux.lastbus.com.easysobuy.dagger.module.ActionCreatorModule;
-import flux.lastbus.com.easysobuy.dagger.module.AppModule;
-import flux.lastbus.com.easysobuy.dagger.module.DaoManageModule;
-import flux.lastbus.com.easysobuy.dagger.module.DaoModule;
-import flux.lastbus.com.easysobuy.dagger.module.DatabaseModule;
-import flux.lastbus.com.easysobuy.dagger.module.FluxModule;
-import flux.lastbus.com.easysobuy.dagger.module.HttpApiModule;
-import flux.lastbus.com.easysobuy.dagger.module.RetrofitModule;
-import flux.lastbus.com.easysobuy.dagger.module.UserModule;
-import flux.lastbus.com.easysobuy.flux.bean.UserView;
+import flux.lastbus.com.easysobuy.di.component.ActionCreatorComponent;
+import flux.lastbus.com.easysobuy.di.component.AppComponent;
+import flux.lastbus.com.easysobuy.di.component.DaggerActionCreatorComponent;
+import flux.lastbus.com.easysobuy.di.component.DaggerAppComponent;
+import flux.lastbus.com.easysobuy.di.module.ActionCreatorModule;
+import flux.lastbus.com.easysobuy.di.module.AppModule;
+import flux.lastbus.com.easysobuy.di.module.DaoManageModule;
+import flux.lastbus.com.easysobuy.di.module.DaoModule;
+import flux.lastbus.com.easysobuy.di.module.DatabaseModule;
+import flux.lastbus.com.easysobuy.di.module.FluxModule;
+import flux.lastbus.com.easysobuy.di.module.HttpApiModule;
+import flux.lastbus.com.easysobuy.di.module.RetrofitModule;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 import flux.lastbus.com.easysobuy.http.api.StoreApi;
 
@@ -40,7 +37,7 @@ public class App extends Application {
 
     AppComponent mAppComponent;
     ActionCreatorComponent mActionCreatorComponent;
-    UserComponent mUserComponent;
+//    UserComponent mUserComponent;
 
     /**
      * 获取App对象
@@ -114,28 +111,28 @@ public class App extends Application {
      * @param userView
      * @return
      */
-    public  UserComponent createUserComponent(UserView userView){
+    /*public  UserComponent createUserComponent(UserView userView){
         mUserComponent = getActionCreatorComponent().plus(new UserModule(userView));
         return mUserComponent;
-    }
+    }*/
 
     /**
      * 回收当前登陆用户信息
      */
-    private void releaseUserComponent(){
-        mUserComponent = null;
-    }
+//    private void releaseUserComponent(){
+//        mUserComponent = null;
+//    }
 
     /**
      * 获取当前登陆用户注入器
      * @param userView 登陆用户信息
      * @return
      */
-    public UserComponent getUserComponent(UserView userView){
-        if(mUserComponent == null){
-            return createUserComponent(userView);
-        }
-        return mUserComponent;
-    }
+//    public UserComponent getUserComponent(UserView userView){
+//        if(mUserComponent == null){
+////            return createUserComponent(userView);
+//        }
+//        return mUserComponent;
+//    }
 
 }

@@ -7,6 +7,19 @@ import android.os.Parcel;
  * Created by yuhang on 16-7-27.
  */
 public class LoginEvent implements ChangeEvent{
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public LoginEvent setType(String type) {
+        this.type = type;
+        return this;
+    }
+
+    public LoginEvent() {
+    }
 
     @Override
     public int describeContents() {
@@ -15,12 +28,11 @@ public class LoginEvent implements ChangeEvent{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-    }
-
-    public LoginEvent() {
+        dest.writeString(this.type);
     }
 
     protected LoginEvent(Parcel in) {
+        this.type = in.readString();
     }
 
     public static final Creator<LoginEvent> CREATOR = new Creator<LoginEvent>() {
