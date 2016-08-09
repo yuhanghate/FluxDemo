@@ -2,6 +2,8 @@ package flux.lastbus.com.easysobuy.flux.creator;
 
 import flux.lastbus.com.easysobuy.flux.action.BaseAction;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * ActionCreator基类，所有ActionCreator都需要继承此类
@@ -10,9 +12,14 @@ import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
  */
 public abstract class BaseActionCreator {
     Dispatcher mDispatcher;
+    CompositeSubscription mCompositeSubscription;
 
     public BaseActionCreator(Dispatcher dispatcher) {
         mDispatcher = dispatcher;
+    }
+
+    public void addCompositeSubscription(CompositeSubscription subscription){
+        this.mCompositeSubscription = subscription;
     }
 
     public Dispatcher getDispatcher() {
@@ -27,4 +34,11 @@ public abstract class BaseActionCreator {
         getDispatcher().dispatch(action);
     }
 
+    /**
+     * 释放Rx对象
+     * @param subscription
+     */
+    public void addSubscription(Subscription subscription){
+        mCompositeSubscription.add(subscription);
+    }
 }

@@ -22,30 +22,29 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import flux.lastbus.com.easysobuy.R;
+import flux.lastbus.com.easysobuy.di.component.UserComponent;
+import flux.lastbus.com.easysobuy.di.module.UserModule;
 import flux.lastbus.com.easysobuy.flux.action.UserAction;
 import flux.lastbus.com.easysobuy.flux.creator.UserActionCreator;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 import flux.lastbus.com.easysobuy.flux.store.LoginStore;
 import flux.lastbus.com.easysobuy.flux.store.event.LoginEvent;
+import rx.Subscription;
 
 /**
  * 登陆界面
  */
 public class LoginActivity extends BaseActivity {
 
+    /**
+     * DI注入
+     */
     @Inject
     UserActionCreator mUserActionCreator;
-/*    @Inject
-    @UserName
-    String username;
-    @Inject
-    @UserID
-    String uid;
-    @Inject
-    @UserKey
-    String key;*/
 
-
+    /**
+     * View注入
+     */
     @BindView(R.id.login_progress)
     ProgressBar mProgressView;
     @BindView(R.id.email)
@@ -68,8 +67,8 @@ public class LoginActivity extends BaseActivity {
      * @param context
      */
     public static void start(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
-        context.startActivity(intent);
+        Intent starter = new Intent(context, LoginActivity.class);
+        context.startActivity(starter);
     }
 
     @Override
@@ -79,14 +78,22 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public BaseStore onCreateStore() {
-        return new LoginStore();
+        return new LoginStore().addCompositeSubscription(mCompositeSubscription);
+    }
+
+    @Override
+    public void onInitComponent() {
+        //注入Activity
+        getActivityComponent().inject(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Set up the login form.
-        getActivityComponent().inject(this);
+
+        //注销登陆用户
+        getApp().releseUserComponent();
+
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.login || id == EditorInfo.IME_NULL) {
                 return true;
@@ -99,7 +106,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void onStoreChangeEvent() {
         super.onStoreChangeEvent();
-        registerEvent(LoginEvent.class)
+        Subscription subscribe = registerEvent(LoginEvent.class)
                 .subscribe(login -> {
                     switch (login.getType()) {
                         case UserAction.ACTION_LOGIN_SUCCESSED:
@@ -114,6 +121,7 @@ public class LoginActivity extends BaseActivity {
                             break;
                     }
                 });
+        addSubscription(subscribe);
     }
 
     /**
@@ -122,10 +130,15 @@ public class LoginActivity extends BaseActivity {
     private void refershSanbar() {
         LoginStore store = getStore();
         String msg;
-        if (store.isLoginStatus()) {
-//            getApp().getUserComponent(store.getmUserView());
+        if (store.isLoginStatus()) {//成功
+
+            //保存当前登陆用户信息
+            UserComponent component = getActivityComponent()
+                    .newUserComponent(new UserModule(store.getmUserView()));
+            getApp().createUserComponent(component);
+            TestActivity.start(this);
             msg = "登陆成功";
-        } else {
+        } else {//失败
             msg = "登陆失败";
         }
         Snackbar.make(mLoginFormView, msg, Snackbar.LENGTH_LONG).show();
@@ -137,9 +150,7 @@ public class LoginActivity extends BaseActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -174,6 +185,7 @@ public class LoginActivity extends BaseActivity {
         String password = mPasswordView.getText().toString();
         mUserActionCreator.login(name, password);
     }
+
 
 }
 

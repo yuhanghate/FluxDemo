@@ -14,7 +14,7 @@ public class URLConstant {
     /**
      * 服务器域名
      */
-    public static final String HOST = "192.168.1.107/";
+    public static final String HOST = "test.easysobuy.com/";
 
     /**
      * 应用上下文名

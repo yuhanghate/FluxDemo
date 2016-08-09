@@ -7,17 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import flux.lastbus.com.easysobuy.app.App;
 import flux.lastbus.com.easysobuy.bus.RxBus;
 import flux.lastbus.com.easysobuy.di.component.ActivityComponent;
 import flux.lastbus.com.easysobuy.di.component.AppComponent;
 import flux.lastbus.com.easysobuy.di.component.DaggerActivityComponent;
+import flux.lastbus.com.easysobuy.di.module.ActivityModule;
+import flux.lastbus.com.easysobuy.di.qualifier.ActivityCompositeSubscription;
+import flux.lastbus.com.easysobuy.di.qualifier.ActivityUnbinder;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 import flux.lastbus.com.easysobuy.flux.store.event.ChangeEvent;
 import rx.Observable;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Activity基类
@@ -26,10 +30,21 @@ import rx.Observable;
 public abstract class BaseActivity extends AppCompatActivity{
     @Inject
     Dispatcher mDispatcher;
-
-    BaseStore mStore;
+    @Inject
+    @ActivityUnbinder
     Unbinder mUnbinder;
+    @Inject
+    @ActivityCompositeSubscription
+    CompositeSubscription mCompositeSubscription;
 
+    /**
+     * View数据提供及View相关逻辑处理类
+     */
+    BaseStore mStore;
+
+    /**
+     * Activity事件注入器
+     */
     ActivityComponent mActivityComponent;
 
     @Override
@@ -44,13 +59,17 @@ public abstract class BaseActivity extends AppCompatActivity{
      * 初始化信息
      */
     public void init(){
-        //注入View布局
-        mUnbinder = ButterKnife.bind(this);
+
+        /**
+         * 创建注入器
+         */
         mActivityComponent = DaggerActivityComponent.builder()
-                .actionCreatorComponent(getApp().getActionCreatorComponent())
+                .appComponent(getAppComponent())
+                .activityModule(new ActivityModule(this))
                 .build();
 
-        mActivityComponent.inject(this);
+        //Activity注入
+        onInitComponent();
 
         //注册Store
         mStore = onCreateStore();
@@ -59,6 +78,27 @@ public abstract class BaseActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * Subscription对象进行缓存,进行对象释放
+     *
+     * @param subscription
+     */
+    public void addSubscription(Subscription subscription) {
+        if(mCompositeSubscription == null){
+            mCompositeSubscription = getActivityComponent().getCompositeSubscription();
+        }
+        this.mCompositeSubscription.add(subscription);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //Subscription释放
+        if (this.mCompositeSubscription != null) {
+            this.mCompositeSubscription.unsubscribe();//取消注册，以避免内存泄露
+            this.mCompositeSubscription = null;
+        }
+    }
 
     @Override
     protected void onDestroy() {
@@ -72,6 +112,7 @@ public abstract class BaseActivity extends AppCompatActivity{
             mDispatcher.unregister(mStore);
             mStore = null;
         }
+
     }
 
     /************************** 以下为提供方法 ***********************************/
@@ -143,5 +184,11 @@ public abstract class BaseActivity extends AppCompatActivity{
         return RxBus.instance().toObservable(event);
     }
 
+    /**
+     * 子类DI事件初始化
+     */
+    public void onInitComponent(){
+        getActivityComponent().inject(this);
+    }
 
 }

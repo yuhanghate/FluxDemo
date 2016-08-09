@@ -5,7 +5,7 @@ import dagger.Provides;
 import flux.lastbus.com.easysobuy.di.qualifier.UserID;
 import flux.lastbus.com.easysobuy.di.qualifier.UserKey;
 import flux.lastbus.com.easysobuy.di.qualifier.UserName;
-import flux.lastbus.com.easysobuy.di.scope.AppScope;
+import flux.lastbus.com.easysobuy.di.scope.UserScope;
 import flux.lastbus.com.easysobuy.flux.bean.UserView;
 
 /**
@@ -14,16 +14,18 @@ import flux.lastbus.com.easysobuy.flux.bean.UserView;
  */
 @Module
 public class UserModule {
-    private UserView mUserView;
-    public UserModule(UserView userView){
-        this.mUserView = userView;
+    UserView mUserView;
+
+    public UserModule(UserView mUserView) {
+        this.mUserView = mUserView;
     }
+
 
     /**
      * 提供用户名
      * @return
      */
-    @AppScope
+    @UserScope
     @UserName
     @Provides
     public String provideUserName(){
@@ -35,7 +37,7 @@ public class UserModule {
      * 提供用户唯一身份令版Key
      * @return
      */
-    @AppScope
+    @UserScope
     @UserKey
     @Provides
     public String provideKey(){
@@ -47,7 +49,7 @@ public class UserModule {
      * 提供用户唯一ID
      * @return
      */
-    @AppScope
+    @UserScope
     @UserID
     @Provides
     public String provideUserid(){
@@ -59,10 +61,10 @@ public class UserModule {
      * 提供用户信息对象
      * @return
      */
-    @AppScope
+//    @UserScope
     @Provides
     public UserView provideUserView(){
-        if(mUserView == null) return null;
+//        mUserView = new UserView();
         return mUserView;
     }
 

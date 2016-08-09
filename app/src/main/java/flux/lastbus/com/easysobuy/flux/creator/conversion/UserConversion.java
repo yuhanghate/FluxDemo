@@ -28,7 +28,7 @@ public class UserConversion {
         userView.setKey(result.getDatas().getKey());
         userView.setUid(result.getDatas().getUserid());
 
-        return createBundle(result, action);
+        return createBundle(userView, action);
     }
 
     /**

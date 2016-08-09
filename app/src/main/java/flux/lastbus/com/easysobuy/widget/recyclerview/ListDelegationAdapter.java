@@ -19,7 +19,7 @@ package flux.lastbus.com.easysobuy.widget.recyclerview;
 /**
  * Itmecount数据抽像类
  */
-public class ListDelegationAdapter extends AbsDelegationAdapter {
+public class ListDelegationAdapter extends BaseDelegation {
 
   public ListDelegationAdapter() {
   }

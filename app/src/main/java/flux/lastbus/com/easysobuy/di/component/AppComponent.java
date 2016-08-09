@@ -13,11 +13,10 @@ import flux.lastbus.com.easysobuy.di.module.AppModule;
 import flux.lastbus.com.easysobuy.di.module.DatabaseModule;
 import flux.lastbus.com.easysobuy.di.module.FluxModule;
 import flux.lastbus.com.easysobuy.di.module.RetrofitModule;
-import flux.lastbus.com.easysobuy.di.module.UserModule;
-import flux.lastbus.com.easysobuy.di.qualifier.UserID;
-import flux.lastbus.com.easysobuy.di.qualifier.UserKey;
-import flux.lastbus.com.easysobuy.di.qualifier.UserName;
+import flux.lastbus.com.easysobuy.di.qualifier.ActionCreator;
 import flux.lastbus.com.easysobuy.di.scope.AppScope;
+import flux.lastbus.com.easysobuy.flux.creator.TestActionCreator;
+import flux.lastbus.com.easysobuy.flux.creator.UserActionCreator;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 import retrofit2.Retrofit;
 
@@ -26,15 +25,14 @@ import retrofit2.Retrofit;
  * Created by yuhang on 16-7-27.
  */
 @AppScope
-@Component(modules = {FluxModule.class, RetrofitModule.class, DatabaseModule.class, AppModule.class, UserModule.class})
+@Component(modules = {FluxModule.class,
+        RetrofitModule.class,
+        DatabaseModule.class,
+        AppModule.class})
 public interface AppComponent {
 
     void inject(App application);
 
-    /********************** Application区域开始 ********************************/
-
-
-    /*********************** Application区域结束 *******************************/
 
 
     /********************** Database区域开始 ********************************/
@@ -96,42 +94,46 @@ public interface AppComponent {
      * Http区域开始
      ********************************/
 
+    /**
+     * Http API接口
+     * @return
+     */
     Retrofit getRetrofit();
 
     /*********************** Http区域结束 *******************************/
-
-
-    /********************** 当前登陆用户区域开始 ********************************/
-
-
-    /********************** 当前登陆用户区域开始 ********************************/
-
 
     /**********************
      * Flux区域开始
      ********************************/
 
+    /**
+     * Store事件分发器
+     * @return
+     */
     Dispatcher getDispatcher();
 
     /**********************
      * Flux区域开始
      ********************************/
 
+    /**
+     * 用户信息数据
+     * @return
+     */
+    UserActionCreator getUserActionCreator();
 
-    /**********************
-     * 当前登陆帐号区域开始
-     ********************************/
-    @UserName
+
+
+    /**
+     * 获取Test Action
+     * @return
+     */
+    TestActionCreator getTestActionCreator();
+
+    @ActionCreator("name")
     String getName();
 
-    @UserID
-    String getUserid();
-
-    @UserKey
-    String getKey();
-    /**********************
-     * 当前登陆帐号区域开始
-     ********************************/
-
+    @ActionCreator("pass")
+    String getPass();
 
 }

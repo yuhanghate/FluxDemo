@@ -50,6 +50,7 @@ import okio.BufferedSource;
 public final class HttpLoggingInterceptor implements Interceptor {
   private static final Charset UTF8 = Charset.forName("UTF-8");
 
+
   public enum Level {
     /** No logs. */
     NONE,

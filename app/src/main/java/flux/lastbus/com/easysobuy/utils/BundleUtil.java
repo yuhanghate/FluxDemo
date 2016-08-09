@@ -1,6 +1,9 @@
 package flux.lastbus.com.easysobuy.utils;
 
 import android.os.Bundle;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 
 import flux.lastbus.com.easysobuy.constant.BundleConstant;
 
@@ -27,5 +30,17 @@ public class BundleUtil {
             throw new IllegalArgumentException("the bundle is null or empty");
         }
         return (Throwable) bundle.getSerializable(BundleConstant.THROWABLE);
+    }
+
+    public static <T extends Parcelable> Bundle createBundle(T data, String action){
+        Bundle bundle = BundleUtil.newInstance();
+        bundle.putParcelable(action, data);
+        return bundle;
+    }
+
+    public static <T extends Parcelable> Bundle createBundleList(ArrayList<T> list, String action){
+        Bundle bundle = BundleUtil.newInstance();
+        bundle.putParcelableArrayList(action, list);
+        return bundle;
     }
 }

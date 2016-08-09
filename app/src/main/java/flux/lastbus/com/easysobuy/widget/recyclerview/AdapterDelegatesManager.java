@@ -29,7 +29,7 @@ import java.util.List;
  * Created by yuhang on 16-7-6.
  *
  */
-public class AdapterDelegatesManager<T extends AbsAdatperData> {
+public class AdapterDelegatesManager<T extends BaseAdapterData> {
 
 
 
@@ -51,7 +51,12 @@ public class AdapterDelegatesManager<T extends AbsAdatperData> {
   /**
    * 没数据Adapter
    */
-  private EmptyViewAdapter emptyViewDelegate;
+  private BaseEmptyView emptyViewDelegate;
+
+  /**
+   * 数据异常Adapter
+   */
+  private BaseErrorView errorViewDelegate;
 
   /**
    * 是否增加头部View
@@ -162,9 +167,9 @@ public class AdapterDelegatesManager<T extends AbsAdatperData> {
    * 返回底部Adapter对象
    * @return
      */
-  public FooterViewAdapter getFooterView(){
-    if(footerDelegate instanceof FooterViewAdapter){
-      return (FooterViewAdapter) footerDelegate;
+  public BaseFooterView getFooterView(){
+    if(footerDelegate instanceof BaseFooterView){
+      return (BaseFooterView) footerDelegate;
     }
     return null;
   }
@@ -173,9 +178,9 @@ public class AdapterDelegatesManager<T extends AbsAdatperData> {
    * 返回头部Adapter
    * @return
      */
-  public HeaderViewAdapter getHeaderView(){
-    if(headerDelegate instanceof HeaderViewAdapter){
-      return (HeaderViewAdapter) headerDelegate;
+  public BaseHeaderView getHeaderView(){
+    if(headerDelegate instanceof BaseHeaderView){
+      return (BaseHeaderView) headerDelegate;
     }
     return null;
   }
@@ -361,7 +366,7 @@ public class AdapterDelegatesManager<T extends AbsAdatperData> {
    * 增加没有数据时显示的Adapter
    * @param delegate
      */
-  public void addEmptyView(@NonNull EmptyViewAdapter delegate){
+  public void addEmptyView(@NonNull BaseEmptyView delegate){
     if(delegate == null)
       throw new NullPointerException("No AdapterDelegate added is Null! ");
 
@@ -369,12 +374,25 @@ public class AdapterDelegatesManager<T extends AbsAdatperData> {
     addDelegate(delegate);
   }
 
+  public void addErrorView(@NonNull BaseErrorView delegate){
+    errorViewDelegate = delegate;
+    addDelegate(delegate);
+  }
+
   /**
    * 获取空数据Adapter
    * @return
      */
-  public EmptyViewAdapter getEmptyView(){
+  public BaseEmptyView getEmptyView(){
     return emptyViewDelegate;
   }
 
+
+  /**
+   * 异常Adapter
+   * @return
+     */
+  public BaseErrorView getErrorView(){
+    return errorViewDelegate;
+  }
 }

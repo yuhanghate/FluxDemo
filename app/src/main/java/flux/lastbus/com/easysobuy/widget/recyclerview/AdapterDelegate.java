@@ -27,14 +27,14 @@ import java.util.List;
  * Created by yuhang on 16-7-6.
  * @param <T> 代理每个View布局ViewHolder对应的数据绑定对象
  */
-public interface AdapterDelegate<T extends AbsAdatperData> {
+public interface AdapterDelegate<T extends BaseAdapterData> {
 
   /**
    * 匹配View 类型
    * @param item
      * @return
      */
-  boolean isForViewType(@NonNull AbsAdatperData item);
+  boolean isForViewType(@NonNull BaseAdapterData item);
 
   /**
    * 创建View类型
@@ -57,13 +57,15 @@ public interface AdapterDelegate<T extends AbsAdatperData> {
    * Itme点击事件
    * @param listener
      */
-  void setOnItemClickListener(AbsViewHolder.OnItemClickListener listener);
+  void setOnItemClickListener(BaseViewHolder.OnItemClickListener listener);
 
   /**
    * Item点击事件
    * @return
      */
-  AbsViewHolder.OnItemClickListener getOnItemclickListener();
+  BaseViewHolder.OnItemClickListener getOnItemclickListener();
+
+
 
 
 

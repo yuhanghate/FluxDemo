@@ -15,6 +15,7 @@ import flux.lastbus.com.easysobuy.flux.bean.UserView;
 @UserScope
 @Subcomponent(modules = {UserModule.class})
 public interface UserComponent {
+//    void inject(LoginActivity loginActivity);
     UserView getUserView();
 
     @UserName

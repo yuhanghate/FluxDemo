@@ -6,10 +6,9 @@ import javax.inject.Inject;
 
 import de.greenrobot.dao.query.QueryBuilder;
 import flux.lastbus.com.easysobuy.BuildConfig;
-import flux.lastbus.com.easysobuy.di.component.ActionCreatorComponent;
 import flux.lastbus.com.easysobuy.di.component.AppComponent;
-import flux.lastbus.com.easysobuy.di.component.DaggerActionCreatorComponent;
 import flux.lastbus.com.easysobuy.di.component.DaggerAppComponent;
+import flux.lastbus.com.easysobuy.di.component.UserComponent;
 import flux.lastbus.com.easysobuy.di.module.ActionCreatorModule;
 import flux.lastbus.com.easysobuy.di.module.AppModule;
 import flux.lastbus.com.easysobuy.di.module.DaoManageModule;
@@ -33,11 +32,12 @@ public class App extends Application {
     @Inject
     StoreApi mStoreApi;
 
+
     static App mApp;
 
     AppComponent mAppComponent;
-    ActionCreatorComponent mActionCreatorComponent;
-//    UserComponent mUserComponent;
+//    ActionCreatorComponent mActionCreatorComponent;
+    UserComponent mUserComponent;
 
     /**
      * 获取App对象
@@ -68,6 +68,7 @@ public class App extends Application {
                 .appModule(new AppModule(this))
                 .fluxModule(new FluxModule())
                 .httpApiModule(new HttpApiModule())
+                .actionCreatorModule(new ActionCreatorModule())
                 .build();
 
         //注入
@@ -93,46 +94,26 @@ public class App extends Application {
     }
 
     /**
-     * 获取数据帮助类注入器
+     * 获取当前登陆用户信息
      * @return
      */
-    public ActionCreatorComponent getActionCreatorComponent(){
-        if(mActionCreatorComponent == null){
-            mActionCreatorComponent= DaggerActionCreatorComponent.builder()
-                    .appComponent(getAppComponent())
-                    .actionCreatorModule(new ActionCreatorModule(mDispatcher,mStoreApi))
-                    .build();
-        }
-        return mActionCreatorComponent;
+    public UserComponent getUserComponent(){
+        return mUserComponent;
     }
 
     /**
-     * 保存当前登陆用户信息并提供注入器
-     * @param userView
-     * @return
+     * 创建用户信息注入器
+     * @param component
      */
-    /*public  UserComponent createUserComponent(UserView userView){
-        mUserComponent = getActionCreatorComponent().plus(new UserModule(userView));
-        return mUserComponent;
-    }*/
+    public void createUserComponent(UserComponent component){
+        this.mUserComponent = component;
+    }
 
     /**
-     * 回收当前登陆用户信息
+     * 释放用户注入器
      */
-//    private void releaseUserComponent(){
-//        mUserComponent = null;
-//    }
-
-    /**
-     * 获取当前登陆用户注入器
-     * @param userView 登陆用户信息
-     * @return
-     */
-//    public UserComponent getUserComponent(UserView userView){
-//        if(mUserComponent == null){
-////            return createUserComponent(userView);
-//        }
-//        return mUserComponent;
-//    }
+    public void releseUserComponent(){
+        this.mUserComponent = null;
+    }
 
 }
