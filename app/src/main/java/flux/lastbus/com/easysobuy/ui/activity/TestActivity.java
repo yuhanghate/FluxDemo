@@ -46,6 +46,5 @@ public class TestActivity extends BaseActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frameLayout, TestFragment.newInstance());
         transaction.commit();
-
     }
 }
