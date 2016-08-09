@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">easysobuy</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="home">主页</string>
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

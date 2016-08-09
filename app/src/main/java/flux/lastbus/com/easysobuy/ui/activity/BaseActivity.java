@@ -16,6 +16,7 @@ import flux.lastbus.com.easysobuy.di.component.DaggerActivityComponent;
 import flux.lastbus.com.easysobuy.di.module.ActivityModule;
 import flux.lastbus.com.easysobuy.di.qualifier.ActivityCompositeSubscription;
 import flux.lastbus.com.easysobuy.di.qualifier.ActivityUnbinder;
+import flux.lastbus.com.easysobuy.flux.action.BaseAction;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 import flux.lastbus.com.easysobuy.flux.store.event.ChangeEvent;
@@ -189,6 +190,14 @@ public abstract class BaseActivity extends AppCompatActivity{
      */
     public void onInitComponent(){
         getActivityComponent().inject(this);
+    }
+
+    /**
+     * 分发数据到Store层
+     * @param action
+     */
+    public void dispatch(BaseAction action){
+        getDispatcher().dispatch(action);
     }
 
 }

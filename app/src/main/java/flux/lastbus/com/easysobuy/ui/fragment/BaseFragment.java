@@ -19,6 +19,7 @@ import flux.lastbus.com.easysobuy.di.component.FragmentComponent;
 import flux.lastbus.com.easysobuy.di.module.FragmentModule;
 import flux.lastbus.com.easysobuy.di.qualifier.FragmentCompositeSubscription;
 import flux.lastbus.com.easysobuy.di.qualifier.FragmentUnbinder;
+import flux.lastbus.com.easysobuy.flux.action.BaseAction;
 import flux.lastbus.com.easysobuy.flux.dispatcher.Dispatcher;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 import flux.lastbus.com.easysobuy.flux.store.event.ChangeEvent;
@@ -240,5 +241,13 @@ public abstract class BaseFragment extends Fragment {
      */
     public void onInitComponent(){
         getFragmentComponent().inject(this);
+    }
+
+    /**
+     * 分发数据到Store层
+     * @param action
+     */
+    public void dispatch(BaseAction action){
+        getDispatcher().dispatch(action);
     }
 }
