@@ -64,11 +64,9 @@ public class TestFragment extends BaseFragment implements
         init();
     }
 
-
     @Override
     public void onInitComponent() {
         super.onInitComponent();
-
 
         //TestFragment变量进行注入
         getFragmentComponent().inject(this);

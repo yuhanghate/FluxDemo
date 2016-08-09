@@ -32,6 +32,8 @@ public class LoginStore extends BaseStore {
         return mLoginEvent;
     }
 
+
+
     @Override
     public void onAction(BaseAction action) {
         switch (action.getType()){
