@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
@@ -53,10 +54,15 @@ public class LoginActivity extends BaseActivity {
     EditText mPasswordView;
     @BindView(R.id.login_form)
     ScrollView mLoginFormView;
-    @BindView(R.id.email_sign_in_button)
+    @BindView(R.id.loginButton)
     Button emailSignInButton;
     @BindView(R.id.email_login_form)
     LinearLayout emailLoginForm;
+    @BindView(R.id.toolbarView)
+    Toolbar toolbarView;
+
+    @BindView(R.id.forgetPasswordButton)
+    Button forgetPasswordButton;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -91,8 +97,11 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initView();
+
         //注销登陆用户
         getApp().releseUserComponent();
+
 
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -100,6 +109,14 @@ public class LoginActivity extends BaseActivity {
             }
             return false;
         });
+    }
+
+    /**
+     * 初始化View
+     */
+    public void initView() {
+        setSupportActionBar(toolbarView);
+        toolbarView.setNavigationOnClickListener(v -> finish());
     }
 
 
@@ -179,13 +196,19 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.email_sign_in_button)
-    public void onClick() {
-        String name = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        mUserActionCreator.login(name, password);
+
+    @OnClick({R.id.loginButton, R.id.forgetPasswordButton})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.loginButton:
+                String name = mEmailView.getText().toString();
+                String password = mPasswordView.getText().toString();
+                mUserActionCreator.login(name, password);
+                break;
+            case R.id.forgetPasswordButton:
+                Snackbar.make(mLoginFormView,"忘记密码", Snackbar.LENGTH_LONG).show();
+                break;
+        }
     }
-
-
 }
 

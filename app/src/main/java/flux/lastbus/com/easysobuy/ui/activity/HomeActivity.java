@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import butterknife.BindView;
 import flux.lastbus.com.easysobuy.R;
@@ -18,7 +19,8 @@ import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 /**
  * Created by yuhang on 16-8-9.
  */
-public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
+View.OnClickListener{
     @BindView(R.id.toolbarView)
     Toolbar toolbarView;
     @BindView(R.id.navigationView)
@@ -27,6 +29,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     DrawerLayout homeLayoutView;
 
     ActionBarDrawerToggle drawerToggle;
+    View headerView;
 
     @Override
     public int onContentView() {
@@ -46,6 +49,12 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void initView() {
         setSupportActionBar(toolbarView);
+
+        int headerCount = navigationView.getHeaderCount();
+        headerView = navigationView.getHeaderView(0);
+
+        //设置头像点击事件
+        headerView.findViewById(R.id.profile_image).setOnClickListener(this);
 
         drawerToggle = new ActionBarDrawerToggle(this, homeLayoutView, toolbarView, R.string.drawer_open, R.string.drawer_close);
         homeLayoutView.addDrawerListener(drawerToggle);
@@ -106,5 +115,15 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.profile_image:
+                //关闭抽屉
+                homeLayoutView.closeDrawers();
+                GuidePageActivity.start(this);
+                break;
+        }
     }
 }
