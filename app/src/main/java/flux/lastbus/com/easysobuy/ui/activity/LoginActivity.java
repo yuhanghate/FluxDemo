@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 
 import javax.inject.Inject;
 
@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.password)
     EditText mPasswordView;
     @BindView(R.id.login_form)
-    ScrollView mLoginFormView;
+    NestedScrollView mLoginFormView;
     @BindView(R.id.loginButton)
     Button emailSignInButton;
     @BindView(R.id.email_login_form)
@@ -158,7 +158,7 @@ public class LoginActivity extends BaseActivity {
         } else {//失败
             msg = "登陆失败";
         }
-        Snackbar.make(mLoginFormView, msg, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(emailSignInButton, msg, Snackbar.LENGTH_LONG).show();
     }
 
 

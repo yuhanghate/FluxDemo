@@ -34,8 +34,7 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".ui.activity.TestActivity" />
         <activity android:name=".ui.activity.GuidePageActivity" />
-        <activity android:name=".ui.activity.RegisterActivity"
-            android:label="Register"></activity>
+        <activity android:name=".ui.activity.RegisterActivity"></activity>
     </application>
 
 </manifest>

@@ -20,16 +20,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
+        android:layout_weight="2"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/guideIcon"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/login_icon" />
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/guide_page_bg" />
 
         <TextView
             android:id="@+id/guideTitle"
@@ -43,7 +43,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="4"
         android:gravity="center_horizontal|bottom"
         android:orientation="vertical"
         android:padding="16dp"
