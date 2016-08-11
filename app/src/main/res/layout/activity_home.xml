@@ -35,7 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-
         android:layout_marginRight="56dp"
         app:menu="@menu/home_drawer"
         app:headerLayout="@layout/menu_home_head"
