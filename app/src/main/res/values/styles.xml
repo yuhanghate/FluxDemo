@@ -16,5 +16,10 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="ActivityTheme.Base" parent="AppTheme.Base">
+        <item name="android:textColorPrimary">@color/color_50</item>
+
+    </style>
+
 
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="home_tab_titles">
+        <item>资讯头条</item>
+        <item>热销推荐</item>
+        <item>价格中心</item>
+        <item>行情分析</item>
+        <item>企业要闻</item>
+        <item>猜你需求</item>
+    </string-array>
+</resources>

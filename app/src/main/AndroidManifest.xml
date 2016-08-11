@@ -11,12 +11,13 @@
         android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/home"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.DesignDemo">
         <activity
             android:name=".ui.activity.HomeActivity"
-            android:theme="@style/Theme.DesignDemo">
+            android:label="@string/home"
+            android:theme="@style/ActivityTheme.Base">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +34,8 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".ui.activity.TestActivity" />
         <activity android:name=".ui.activity.GuidePageActivity" />
-        <activity android:name=".ui.activity.RegisterActivity"></activity>
+        <activity android:name=".ui.activity.RegisterActivity"
+            android:label="Register"></activity>
     </application>
 
 </manifest>

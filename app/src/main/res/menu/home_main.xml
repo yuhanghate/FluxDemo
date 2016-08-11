@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.activity.HomeActivity">
+    <item
+        android:id="@+id/collection"
+        android:title="商品收藏"/>
+    <item
+        android:id="@+id/footprint"
+        android:title="我的足迹"/>
+    <item
+        android:id="@+id/settings"
+        android:title="设置"/>
+</menu>

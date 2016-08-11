@@ -2,31 +2,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
-            android:id="@+id/home"
-            android:icon="@drawable/home"
-            android:title="Home"/>
+            android:id="@+id/category"
+            android:icon="@mipmap/category"
+            android:title="分类"/>
+
         <item
-            android:id="@+id/message"
+            android:id="@+id/customService"
             android:icon="@drawable/message"
-            android:title="消息"
+            android:title="客服"
             />
         <item
-            android:id="@+id/friends"
-            android:icon="@drawable/friends"
-            android:title="朋友"/>
+            android:id="@+id/active"
+            android:icon="@mipmap/active"
+            android:title="活动中心"/>
     </group>
 
     <item android:title="更多">
         <menu>
             <item
-                android:id="@+id/dashboard"
-                android:icon="@drawable/dashboard"
-                android:title="仪表板"/>
+                android:id="@+id/collection"
+                android:icon="@mipmap/collection"
+                android:titleCondensed=""
+                android:title="商品收藏"/>
             <item
-                android:id="@+id/forum"
-                android:icon="@drawable/forum"
-                android:title="论坛"/>
+                android:id="@+id/footprint"
+                android:icon="@mipmap/footprint"
+                android:title="我的足迹"/>
+            <item
+                android:id="@+id/settings"
+                android:icon="@mipmap/settings"
+                android:title="设置"/>
         </menu>
     </item>
 </menu>

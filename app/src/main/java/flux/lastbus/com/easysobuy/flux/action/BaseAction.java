@@ -46,4 +46,15 @@ public class BaseAction implements Parcelable {
         this.data = in.readBundle();
     }
 
+    public static final Creator<BaseAction> CREATOR = new Creator<BaseAction>() {
+        @Override
+        public BaseAction createFromParcel(Parcel source) {
+            return new BaseAction(source);
+        }
+
+        @Override
+        public BaseAction[] newArray(int size) {
+            return new BaseAction[size];
+        }
+    };
 }
