@@ -33,8 +33,18 @@
             android:name=".ui.activity.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".ui.activity.TestActivity" />
-        <activity android:name=".ui.activity.GuidePageActivity" />
-        <activity android:name=".ui.activity.RegisterActivity"></activity>
+        <activity android:name=".ui.activity.GuidePageActivity"
+            android:theme="@style/ActivityTheme.Base"/>
+        <activity android:name=".ui.activity.RegisterActivity" />
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:label="@string/settings"/>
+        <activity
+            android:name=".ui.activity.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/ActivityTheme.Base"></activity>
+        <activity android:name=".ui.activity.Text2Activity"
+            android:label="@string/settings"/>"
     </application>
 
 </manifest>

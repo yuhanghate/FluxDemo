@@ -4,32 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/homeLayoutView"
+    android:fitsSystemWindows="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.HomeActivity">
 
     <include layout="@layout/activity_home_content"/>
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!---->
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbarView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="?attr/colorPrimary"-->
-            <!--app:layout_scrollFlags="scroll|enterAlways"-->
-            <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
-        <!--<TextView-->
-            <!--android:layout_width="256dp"-->
-            <!--android:layout_height="256dp"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:gravity="center"-->
-            <!--android:background="@drawable/home_bg"-->
-            <!--android:textSize="30sp"-->
-            <!--android:text="Home"/>-->
-    <!--</RelativeLayout>-->
     
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationView"

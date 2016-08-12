@@ -6,17 +6,19 @@
         <item
             android:id="@+id/category"
             android:icon="@mipmap/category"
-            android:title="分类"/>
-
+            android:title="分类" />
         <item
             android:id="@+id/customService"
             android:icon="@drawable/message"
-            android:title="客服"
-            />
+            android:title="客服" />
         <item
             android:id="@+id/active"
             android:icon="@mipmap/active"
-            android:title="活动中心"/>
+            android:title="活动中心" />
+        <item
+            android:id="@+id/pay"
+            android:icon="@mipmap/pay"
+            android:title="我的钱包" />
     </group>
 
     <item android:title="更多">
@@ -24,16 +26,16 @@
             <item
                 android:id="@+id/collection"
                 android:icon="@mipmap/collection"
-                android:titleCondensed=""
-                android:title="商品收藏"/>
+                android:title="商品收藏"
+                android:titleCondensed="" />
             <item
                 android:id="@+id/footprint"
                 android:icon="@mipmap/footprint"
-                android:title="我的足迹"/>
+                android:title="我的足迹" />
             <item
                 android:id="@+id/settings"
                 android:icon="@mipmap/settings"
-                android:title="设置"/>
+                android:title="设置" />
         </menu>
     </item>
 </menu>

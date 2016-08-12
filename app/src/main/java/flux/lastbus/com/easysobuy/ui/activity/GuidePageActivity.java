@@ -55,6 +55,8 @@ public class GuidePageActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setSupportActionBar(toolbarView);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbarView.setNavigationOnClickListener(v -> finish());
         setTitle("");
     }

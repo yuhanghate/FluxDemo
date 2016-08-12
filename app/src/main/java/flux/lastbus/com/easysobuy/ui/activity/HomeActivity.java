@@ -1,7 +1,9 @@
 package flux.lastbus.com.easysobuy.ui.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +13,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,13 +30,12 @@ import flux.lastbus.com.easysobuy.ui.adapter.HomeViewPagerAdapter;
 import flux.lastbus.com.easysobuy.ui.fragment.BaseFragment;
 import flux.lastbus.com.easysobuy.ui.fragment.HomeFragment;
 
-import static android.support.design.widget.TabLayout.MODE_SCROLLABLE;
-
 /**
  * Created by yuhang on 16-8-9.
  */
 public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener, ViewPager.OnPageChangeListener {
+        View.OnClickListener, ViewPager.OnPageChangeListener, MaterialSearchView.OnQueryTextListener,
+        MaterialSearchView.SearchViewListener {
 
     @BindView(R.id.navigationView)
     NavigationView navigationView;
@@ -55,6 +58,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     String[] mTitles;
     @BindView(R.id.tableLayout)
     TabLayout tableLayout;
+//    @BindView(R.id.search_view)
+//    MaterialSearchView searchView;
 
 
     @Override
@@ -73,6 +78,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         initData();
         initView();
     }
+
 
     private void initView() {
         setSupportActionBar(toolbarView);
@@ -101,11 +107,17 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         // 给ViewPager添加页面动态监听器（为了让Toolbar中的Title可以变化相应的Tab的标题）
         viewpager.addOnPageChangeListener(this);
 
-        tableLayout.setTabMode(MODE_SCROLLABLE);
+        tableLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         // 将TabLayout和ViewPager进行关联，让两者联动起来
         tableLayout.setupWithViewPager(viewpager);
         // 设置Tablayout的Tab显示ViewPager的适配器中的getPageTitle函数获取到的标题
 //        tableLayout.setTabsFromPagerAdapter(mHomeViewPagerAdapter);
+
+
+//        //搜索栏面设置
+//        searchView.setVoiceSearch(false);
+//        searchView.setOnQueryTextListener(this);
+//        searchView.setOnSearchViewListener(this);
 
     }
 
@@ -119,6 +131,22 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             HomeFragment fragment = HomeFragment.newInstance();
             mFragments.add(i, fragment);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (matches != null && matches.size() > 0) {
+                String searchWrd = matches.get(0);
+                if (!TextUtils.isEmpty(searchWrd)) {
+//                    searchView.setQuery(searchWrd, false);
+                }
+            }
+
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -139,9 +167,11 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.footprint:
                 msg = "我的足迹";
+                ScrollingActivity.start(this);
                 break;
             case R.id.settings:
                 msg = "设置";
+                SettingsActivity.start(this);
                 break;
         }
 
@@ -154,27 +184,18 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_main, menu);
+//        MenuItem item = menu.findItem(R.id.search);
+//        searchView.setMenuItem(item);
+
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        SearchView.SearchAutoComplete textView = ( SearchView.SearchAutoComplete) searchView.findViewById(R.id.search_src_text);
+        textView.setHintTextColor(getResources().getColor(android.R.color.white));
         return true;
     }
-
-//    @Override
-//    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
-//        if (menu != null) {
-//            if (menu.getClass() == MenuBuilder.class) {
-//                try {
-//                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
-//                    m.setAccessible(true);
-//                    m.invoke(menu, true);
-//                } catch (Exception e) {
-//                }
-//            }
-//        }
-//        return super.onPrepareOptionsPanel(view, menu);
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -217,6 +238,9 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.floatingActionButton:
                 Snackbar.make(toolbarView, "FloatingButton", Snackbar.LENGTH_LONG).show();
                 break;
+            case R.id.search:
+                onSearchViewShown();
+                break;
         }
     }
 
@@ -232,6 +256,37 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+       /* floatingActionButton.hide();
+        if(newText != null && newText.trim().length()>0){
+            tableLayout.setVisibility(View.GONE);
+        }*/
+//        onSearchViewShown();
+//        onSearchViewShown();
+//        searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
+        return false;
+    }
+
+    @Override
+    public void onSearchViewShown() {
+        floatingActionButton.hide();
+        tableLayout.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onSearchViewClosed() {
+        floatingActionButton.show();
+        tableLayout.setVisibility(View.VISIBLE);
 
     }
 }

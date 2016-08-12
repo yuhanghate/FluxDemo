@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.activity.HomeActivity">
+
+    <item android:id="@+id/search"
+        android:icon="@mipmap/search"
+        android:title="搜索"
+        android:orderInCategory="80"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
     <item
         android:id="@+id/collection"
-        android:title="商品收藏"/>
+        android:title="商品收藏"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/footprint"
-        android:title="我的足迹"/>
+        android:title="我的足迹"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/settings"
-        android:title="设置"/>
+        android:title="设置"
+        app:showAsAction="never"/>
 </menu>

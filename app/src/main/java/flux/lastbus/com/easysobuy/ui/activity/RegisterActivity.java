@@ -22,8 +22,6 @@ import flux.lastbus.com.easysobuy.ui.fragment.BaseFragment;
 import flux.lastbus.com.easysobuy.ui.fragment.RegisterEmailFragment;
 import flux.lastbus.com.easysobuy.ui.fragment.RegisterPhoneFragment;
 
-import static android.support.design.widget.TabLayout.MODE_SCROLLABLE;
-
 public class RegisterActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
 
@@ -73,6 +71,8 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
     public void initView() {
         toolbarView.setTitle("Tel & Email");
         setSupportActionBar(toolbarView);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbarView.setNavigationOnClickListener(v -> finish());
 
         mRegisterViewPagerAdapter = new RegisterViewPagerAdapter(getSupportFragmentManager(),mFragments,mTitls);
@@ -82,7 +82,7 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
         // 给ViewPager添加页面动态监听器（为了让Toolbar中的Title可以变化相应的Tab的标题）
         viewPager.addOnPageChangeListener(this);
 
-        tableLayout.setTabMode(MODE_SCROLLABLE);
+        tableLayout.setTabMode(TabLayout.MODE_FIXED);
         // 将TabLayout和ViewPager进行关联，让两者联动起来
         tableLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(0);
@@ -108,8 +108,7 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
 
     @Override
     public void onPageSelected(int position) {
-        toolbarView.setTitle(mTitls[position]);
-        setTitle(mTitls[position]);
+        getSupportActionBar().setTitle(mTitls[position]);
     }
 
     @Override

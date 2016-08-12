@@ -7,10 +7,12 @@
     <color name="secondary_text">#757575</color>
     <color name="divider">#BDBDBD</color>
     <color name="text">#FFFFFF</color>
-    <color name="colorPrimaryLight">#C5CAE9</color>
+    <color name="colorPrimaryLight">#E5E5E5</color>
     <color name="windowsBackground">#E5E5E5</color>
     <color name="cartBackground">#FFFFFF</color>
     <color name="gray">#E0E0E0</color>
+    <color name="tm_bg">#78000000</color>
+    <color name="search_layover_bg">#97000000</color>
 
 
     <color name="color_50">#e8eaf6</color>
