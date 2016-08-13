@@ -45,6 +45,7 @@
             android:theme="@style/ActivityTheme.Base"></activity>
         <activity android:name=".ui.activity.Text2Activity"
             android:label="@string/settings"/>"
+        <activity android:name=".ui.activity.AboutActivity"/>
     </application>
 
 </manifest>

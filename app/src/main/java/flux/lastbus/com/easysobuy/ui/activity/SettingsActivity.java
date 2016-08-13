@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import flux.lastbus.com.easysobuy.R;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 
@@ -36,8 +39,26 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setSupportActionBar(toolbarView);
-        toolbarView.setNavigationIcon(R.mipmap.back);
-        toolbarView.setNavigationOnClickListener(v -> finish());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    @OnClick(R.id.about)
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.about:
+                AboutActivity.start(this);
+                break;
+        }
     }
 
 }
