@@ -46,6 +46,8 @@
         <activity android:name=".ui.activity.Text2Activity"
             android:label="@string/settings"/>"
         <activity android:name=".ui.activity.AboutActivity"/>
+        <activity android:name=".ui.activity.BottomSheetActivity"
+            android:theme="@style/ShareTheme.Base" />
     </application>
 
 </manifest>

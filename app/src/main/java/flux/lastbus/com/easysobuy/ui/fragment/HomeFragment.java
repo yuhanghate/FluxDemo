@@ -16,6 +16,7 @@ import butterknife.BindView;
 import flux.lastbus.com.easysobuy.R;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 import flux.lastbus.com.easysobuy.ui.adapter.HomeAdapter;
+import flux.lastbus.com.easysobuy.widget.recyclerview.DividerItemDecoration;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -61,7 +62,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),LinearLayoutManager.VERTICAL));
 
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_dark);
+//        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light);
 //        onRefresh();
     }
 
@@ -95,9 +99,17 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     public List<String> getList(){
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            list.add("");
-        }
+        list.add("http://www.51pla.com/UploadPic/2013/03/28/20130328140922814788.jpg");
+        list.add("http://i1.ymfile.com/uploads/product/10/05/x1_1.1349404532_800_600_164514.jpg");
+        list.add("http://file.youboy.com/d/21/31/80/8/825798.JPG");
+        list.add("http://static.panoramio.com/photos/large/35006301.jpg");
+        list.add("http://www.etaji.cn/uploadpic/news/201512100955562713.jpg");
+        list.add("http://img3.redocn.com/20120220/Redocn_2012022005260591.jpg");
+        list.add("http://img.sccnn.com/bimg/323/006.jpg");
+        list.add("http://www.pvc123.com/file/upload/201408/20/16-44-58-24-332387.jpg");
+        list.add("http://file2.youboy.com/d/124/75/59/0/437900.jpg");
+        list.add("http://file2.youboy.com/e/2015/4/27/45/451418.jpg");
+        list.add("http://img09.hc360.cn/09/busin/110/291/b/09-110291199.jpg");
         return list;
     }
 }

@@ -7,40 +7,307 @@
     android:fitsSystemWindows="false"
     tools:context="flux.lastbus.com.easysobuy.ui.activity.ScrollingActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/Theme.DesignDemo.AppBarOverlay">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/app_bar_height"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:theme="@style/Theme.DesignDemo.AppBarOverlay">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/Theme.DesignDemo.PopupOverlay" />
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item_bg"
+                    app:layout_collapseMode="parallax"
+                    android:fitsSystemWindows="true"
+                    android:src="@drawable/jbshape"/>
 
-    <include layout="@layout/content_scrolling" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/Theme.DesignDemo.PopupOverlay" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/content_scrolling" />
+
+
+    <ImageView
+        android:id="@+id/bottomSheetBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/transparent"/>
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end" />
+        android:background="@color/windowsBackground"
+        android:gravity="bottom"
+        android:paddingRight="24dp"
+        android:paddingLeft="24dp"
+        android:paddingBottom="24dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.andexert.library.RippleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:rv_color="@color/cartBackground"
+                    app:rv_rippleDuration="200">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/sms"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="14dp"
+                                android:layout_marginTop="8dp"
+                                android:textColor="@color/secondary_text"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:text="短信"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </com.andexert.library.RippleView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <com.andexert.library.RippleView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:rv_color="@color/cartBackground"
+                    app:rv_rippleDuration="200">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/qq"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/secondary_text"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:text="QQ"/>
+                    </LinearLayout>
+
+                </com.andexert.library.RippleView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.andexert.library.RippleView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    app:rv_color="@color/cartBackground"
+                    app:rv_rippleDuration="200">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/wechat"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/secondary_text"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:text="微信"/>
+                    </LinearLayout>
+                </com.andexert.library.RippleView>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.andexert.library.RippleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:rv_color="@color/cartBackground"
+                    app:rv_rippleDuration="200">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/qqzone"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="14dp"
+                                android:layout_marginTop="8dp"
+                                android:textColor="@color/secondary_text"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:text="空间"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </com.andexert.library.RippleView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <com.andexert.library.RippleView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:rv_color="@color/cartBackground"
+                    app:rv_rippleDuration="200">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/weibo"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/secondary_text"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:text="微博"/>
+                    </LinearLayout>
+
+                </com.andexert.library.RippleView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.andexert.library.RippleView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    app:rv_color="@color/cartBackground"
+                    app:rv_rippleDuration="200">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/email"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="14dp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/secondary_text"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:text="邮件"/>
+                    </LinearLayout>
+                </com.andexert.library.RippleView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@mipmap/share"
+            app:layout_anchor="@id/app_bar"
+            app:layout_anchorGravity="bottom|end" />
+
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -13,6 +13,8 @@
     <color name="gray">#E0E0E0</color>
     <color name="tm_bg">#78000000</color>
     <color name="search_layover_bg">#97000000</color>
+    <color name="transparent">#5b000000</color>
+    <color name="share_item_bg">#d4d4d4</color>
 
 
     <color name="color_50">#e8eaf6</color>

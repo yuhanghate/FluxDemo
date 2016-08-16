@@ -14,8 +14,6 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.loginButton)
     AppCompatButton loginButton;
 
-
-
     @OnClick(R.id.loginButton)
     public void onClick() {
         LoginActivity.start(this);
