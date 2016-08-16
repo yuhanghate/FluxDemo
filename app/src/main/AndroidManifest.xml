@@ -48,6 +48,10 @@
         <activity android:name=".ui.activity.AboutActivity"/>
         <activity android:name=".ui.activity.BottomSheetActivity"
             android:theme="@style/ShareTheme.Base" />
+        <activity android:name=".ui.activity.ClassifyActivity"
+            android:theme="@style/ActivityTheme.Base"/>
+        <activity android:name=".ui.activity.GoodsActivity"
+            android:theme="@style/ActivityTheme.Base"/>
     </application>
 
 </manifest>

@@ -28,6 +28,7 @@ import flux.lastbus.com.easysobuy.R;
 import flux.lastbus.com.easysobuy.flux.store.BaseStore;
 import flux.lastbus.com.easysobuy.ui.adapter.HomeViewPagerAdapter;
 import flux.lastbus.com.easysobuy.ui.fragment.BaseFragment;
+import flux.lastbus.com.easysobuy.ui.fragment.GoodsListFragment;
 import flux.lastbus.com.easysobuy.ui.fragment.HomeFragment;
 
 /**
@@ -126,10 +127,14 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
         mFragments = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {
-            Bundle mBundle = new Bundle();
-            mBundle.putInt("flag", i);
-            HomeFragment fragment = HomeFragment.newInstance();
-            mFragments.add(i, fragment);
+            if(i == 1){
+                mFragments.add(GoodsListFragment.newInstance());
+            }else{
+                Bundle mBundle = new Bundle();
+                mBundle.putInt("flag", i);
+                HomeFragment fragment = HomeFragment.newInstance();
+                mFragments.add(i, fragment);
+            }
         }
     }
 
@@ -154,6 +159,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         String msg = "";
         switch (item.getItemId()) {
             case R.id.category:
+                ClassifyActivity.start(this);
                 msg = "打开分类";
                 break;
             case R.id.customService:

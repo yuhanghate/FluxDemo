@@ -29,4 +29,9 @@
     <color name="color_900">#1a237e</color>
     
     <color name="color_orange_500">#ff5722</color>
+    <color name="color_red_300">#f36c60</color>
+
+    <color name="color_green_500">#259b24</color>
+    <color name="color_teal_500">#009688</color>
+    <color name="color_light_blue_500">#03a9f4</color>
 </resources>
