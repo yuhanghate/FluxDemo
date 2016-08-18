@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/color_500"
+        app:theme="@style/ToolbarTheme"
+        app:popupTheme="@style/Theme.DesignDemo.PopupOverlay"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="164dp">
+
+                <TextView
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="36dp"
+                    android:text="手机验证码"
+                    android:paddingTop="32dp"
+                    android:gravity="top|center_horizontal"
+                    android:textColor="@android:color/white"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:background="@color/color_500"/>
+                <ImageView
+                    android:layout_toEndOf="@id/view"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@drawable/tel_code"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/codeView1"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:maxLength="1"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <EditText
+                        android:id="@+id/codeView2"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:maxLength="1"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <EditText
+                        android:id="@+id/codeView3"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:maxLength="1"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <EditText
+                        android:id="@+id/codeView4"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:maxLength="1"
+                        android:textColor="@color/primary_text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <!--<EditText
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:layout_marginLeft="8dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <EditText
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:layout_marginLeft="8dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <EditText
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:layout_marginLeft="8dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:inputType="number"
+                        android:gravity="center"/>-->
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginLeft="56dp"
+                    android:layout_marginRight="56dp"
+                    android:layout_marginBottom="36dp"
+                    android:textColor="@android:color/white"
+                    style="?android:textAppearanceSmall"
+                    android:text="确定"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

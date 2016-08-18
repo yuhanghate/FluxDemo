@@ -67,4 +67,11 @@
 
     <style name="Theme.DesignDemo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- ToolBar菜单样式 -->
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">@android:color/white</item> <!--  敲定颜色-->
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
 </resources>
