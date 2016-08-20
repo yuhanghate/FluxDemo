@@ -18,6 +18,19 @@
 <br>
 ![image](https://github.com/yuhanghate/FluxDemo/blob/master/art/login.gif )
 
+<br>
+
+  注册
+<br>
+![image](https://github.com/yuhanghate/FluxDemo/blob/master/art/register.gif )
+
+<br>
+
+  主页
+<br>
+![image](https://github.com/yuhanghate/FluxDemo/blob/master/art/main.gif )
+
+
 ##使用Flux架构
 View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
   
