@@ -1,5 +1,11 @@
 # FluxDemo
 
+<br>
+
+  主页gif
+<br>
+![image](https://github.com/yuhanghate/FluxDemo/blob/master/art/main.gif )
+
 ##使用Flux架构
 View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
   
