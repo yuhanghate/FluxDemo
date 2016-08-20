@@ -2,9 +2,21 @@
 
 <br>
 
-  主页gif
+  aboutgif
 <br>
-![image](https://github.com/yuhanghate/FluxDemo/blob/master/art/main.gif )
+![image](https://github.com/yuhanghate/FluxDemo/blob/master/art/about.gif )
+
+<br>
+
+  商品列表
+<br>
+![image](https://github.com/yuhanghate/FluxDemo/blob/master/art/GoodsList.gif )
+
+<br>
+
+  登陆
+<br>
+![image](https://github.com/yuhanghate/FluxDemo/blob/master/art/login.gif )
 
 ##使用Flux架构
 View -> Creator -> Http/Database/SharePreferce -> Dispatcher -> Store
