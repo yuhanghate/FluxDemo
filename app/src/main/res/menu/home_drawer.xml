@@ -10,7 +10,7 @@
         <item
             android:id="@+id/customService"
             android:icon="@drawable/message"
-            android:title="客服" />
+            android:title="麻豆圈" />
         <item
             android:id="@+id/active"
             android:icon="@mipmap/active"

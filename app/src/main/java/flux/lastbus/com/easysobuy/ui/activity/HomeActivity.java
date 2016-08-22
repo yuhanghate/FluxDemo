@@ -164,6 +164,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.customService:
                 msg = "打开客服";
+                MomentsActivity.start(this);
                 break;
             case R.id.active:
                 msg = "打开活动中心";

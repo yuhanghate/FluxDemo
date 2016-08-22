@@ -54,6 +54,12 @@
             android:theme="@style/ActivityTheme.Base"/>
         <activity android:name=".ui.activity.MobileCodeActivity"
             android:theme="@style/ActivityTheme.Base"/>
+        <activity android:name=".ui.activity.MomentsActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/ActivityTheme.Base"></activity>
+        <activity android:name=".ui.activity.PictureActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/ActivityTheme.Base"/>
     </application>
 
 </manifest>
